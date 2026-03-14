@@ -1,14 +1,30 @@
-# 苍白立方 - 官网（主页 + 封禁页）
+# 苍白立方 - Vue 官网
 
-## 页面
-- index.html：主页
-- bans.html：封禁信息页（趋势图 + 名单卡片）
+## 技术栈
+- npm
+- Vue 3 + Vue Router
+- TailwindCSS
+- 旧样式表保留：`styles.css`
+
+## 本地开发
+```bash
+npm install
+npm run dev
+```
+
+## 构建与预览
+```bash
+npm run build
+npm run preview
+```
+
+## 路由页面
+- `/`：主页
+- `/about`：关于我们
+- `/rules`：服务器规则
+- `/help`：帮助
+- `/bans`：封禁信息（趋势图 + 名单卡片）
 
 ## 主题/设置同步
 - 如果用户没有手动选择主题，默认跟随系统深浅色（prefers-color-scheme）
-- 一旦用户手动在设置里切换主题，会写入 localStorage 并在所有页面生效
-
-## 封禁页说明
-- 曲线图：Canvas 绘制，X=封禁时间（月/日），Y=封禁数量（示例数据）
-- 名单卡片：新增“解封状态”；已解封时按钮文案会变成“请求消除记录->”
-- 管理员留言：可多行，显示区域保留2行高度（超出截断）
+- 一旦用户手动切换主题，会写入 localStorage 并在所有路由页面生效
