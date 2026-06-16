@@ -10,8 +10,8 @@
       @set-width="setWidth"
     />
     <div v-if="drawerOpen" id="backdrop" class="backdrop" @click="closeDrawer"></div>
-    <SiteHeader :misc-open="miscOpen" @open-drawer="openDrawer" @toggle-misc="toggleMisc" @close-misc="closeMisc" />
-    <main class="main" @click="closeMisc">
+    <SiteHeader @open-drawer="openDrawer" />
+    <main class="main">
       <RouterView />
       <SiteFooter />
     </main>
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, provide, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import SiteHeader from "./components/SiteHeader.vue";
 import SettingsDrawer from "./components/SettingsDrawer.vue";
@@ -28,7 +28,6 @@ import { usePreferences } from "./composables/usePreferences";
 
 const route = useRoute();
 const drawerOpen = ref(false);
-const miscOpen = ref(false);
 
 const { theme, width, setTheme, setWidth } = usePreferences();
 
@@ -46,18 +45,9 @@ function closeDrawer() {
   drawerOpen.value = false;
 }
 
-function toggleMisc() {
-  miscOpen.value = !miscOpen.value;
-}
-
-function closeMisc() {
-  miscOpen.value = false;
-}
-
 function handleEsc(e) {
   if (e.key === "Escape") {
     closeDrawer();
-    closeMisc();
   }
 }
 
@@ -65,11 +55,8 @@ watch(
   () => route.fullPath,
   () => {
     closeDrawer();
-    closeMisc();
   }
 );
-
-provide("miscOpen", miscOpen);
 
 onMounted(() => {
   document.addEventListener("keydown", handleEsc);
